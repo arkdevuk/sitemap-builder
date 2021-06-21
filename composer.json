@@ -1,6 +1,7 @@
 {
     "name": "arkdevuk/sitemap-builder",
     "description": "easy hand on sitemap builder for SEO purposes written in php",
+    "homepage": "https://github.com/arkdevuk/sitemap-builder",
     "keywords": [
         "sitemap", "SEO", "utility", "xml"
     ],
@@ -16,6 +17,10 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.4.0"
+    },
+    "support": {
+        "issues": "https://github.com/arkdevuk/sitemap-builder/issues",
+        "source": "https://github.com/arkdevuk/sitemap-builder"
     },
     "autoload": {
         "psr-0": {
