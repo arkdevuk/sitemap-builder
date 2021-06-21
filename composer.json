@@ -1,0 +1,25 @@
+{
+    "name": "arkdevuk/sitemap-builder",
+    "description": "easy hand on sitemap builder for SEO purposes written in php",
+    "keywords": [
+        "sitemap", "SEO", "utility", "xml"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "arkdevuk",
+            "email": "florian.chambon-lacoste@weemars.fr",
+            "homepage": "https://github.com/arkdevuk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "ArkdevukSitemapBuilder": "src/"
+        }
+    }
+}
