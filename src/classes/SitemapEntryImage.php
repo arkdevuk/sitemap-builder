@@ -4,6 +4,12 @@ namespace ArkdevukSitemapBuilder\classes;
 
 use ArkdevukSitemapBuilder\interfaces\SitemapEntryMedia;
 
+/**
+ * Class SitemapEntryImage
+ * @package ArkdevukSitemapBuilder\classes
+ *
+ * @see https://developers.google.com/search/docs/advanced/sitemaps/image-sitemaps?hl=fr
+ */
 class SitemapEntryImage extends AbstractSitemapMedia implements SitemapEntryMedia
 {
     public const TAG = 'image:image';

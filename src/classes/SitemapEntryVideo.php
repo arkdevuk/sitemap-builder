@@ -6,6 +6,12 @@ namespace ArkdevukSitemapBuilder\classes;
 
 use ArkdevukSitemapBuilder\interfaces\SitemapEntryMedia;
 
+/**
+ * Class SitemapEntryVideo
+ * @package ArkdevukSitemapBuilder\classes
+ *
+ * @see https://developers.google.com/search/docs/advanced/sitemaps/video-sitemaps?hl=fr
+ */
 class SitemapEntryVideo extends AbstractSitemapMedia implements SitemapEntryMedia
 {
     public const TAG = 'video:video';
