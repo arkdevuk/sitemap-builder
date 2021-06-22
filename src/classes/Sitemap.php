@@ -211,7 +211,7 @@ class Sitemap
      */
     public function getLastMod(): \DateTime
     {
-        $lastMod = new \DateTime();
+        $lastMod = new \DateTime('1991-01-01');
 
         foreach ($this->entries as $entry) {
             if ($entry instanceof SitemapEntry) {
