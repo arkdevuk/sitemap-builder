@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="https://mywebsite.tld/main-sitemap.xsl" type="text/xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <sitemap>
-        <loc>https://mywebsite.tld/sitemap-page.xml</loc>
-        <lastmod>2020-12-10T00:00:00+00:00</lastmod>
-    </sitemap>
+ <sitemap>
+  <loc>https://mywebsite.tld/sitemap-page.xml</loc>
+  <lastmod>2020-12-10T00:00:00+00:00</lastmod>
+ </sitemap>
 </sitemapindex>
         <!--created with arkdevuk/sitemap-builder, see https://github.com/arkdevuk/sitemap-builder-->

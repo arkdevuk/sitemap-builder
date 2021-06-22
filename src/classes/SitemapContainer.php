@@ -96,6 +96,9 @@ class SitemapContainer
         $writer->endElement();
         $writer->writeComment('created with arkdevuk/sitemap-builder, see https://github.com/arkdevuk/sitemap-builder');
         $writer->endDocument();
+
+        $template = __DIR__.'/../../templates/main-sitemap.xsl';
+        copy($template, $this->outputPath.DIRECTORY_SEPARATOR.'main-sitemap.xsl');
     }
 
     /**

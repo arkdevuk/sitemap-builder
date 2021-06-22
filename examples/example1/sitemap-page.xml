@@ -3,17 +3,17 @@
 <urlset xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
-    <url>
-        <loc>https://mywebsite.tld/test</loc>
-        <changefreq>weekly</changefreq>
-        <priority>1</priority>
-        <lastmod>2020-12-10T00:00:00+00:00</lastmod>
-        <image:image>
-            <image:loc>https://mywebsite.tld/assets/images/image.jpeg</image:loc>
-            <image:caption><![CDATA[A test image for the purpose of the example]]></image:caption>
-            <image:geo_location><![CDATA[Aurillac, Cantal, France]]></image:geo_location>
-            <image:title><![CDATA[Image Title]]></image:title>
-        </image:image>
-    </url>
+ <url>
+  <loc>https://mywebsite.tld/test</loc>
+  <changefreq>weekly</changefreq>
+  <priority>1</priority>
+  <lastmod>2020-12-10T00:00:00+00:00</lastmod>
+  <image:image>
+   <image:loc>https://mywebsite.tld/assets/images/image.jpeg</image:loc>
+   <image:caption><![CDATA[A test image for the purpose of the example]]></image:caption>
+   <image:geo_location><![CDATA[Aurillac, Cantal, France]]></image:geo_location>
+   <image:title><![CDATA[Image Title]]></image:title>
+  </image:image>
+ </url>
 </urlset>
         <!--created with arkdevuk/sitemap-builder, see https://github.com/arkdevuk/sitemap-builder-->
