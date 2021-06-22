@@ -216,7 +216,7 @@ class Sitemap
         foreach ($this->entries as $entry) {
             if ($entry instanceof SitemapEntry) {
                 $lm = $entry->getLastModDateTime();
-                if ($lm !== null && $lm < $lastMod) {
+                if ($lm !== null && $lm > $lastMod) {
                     $lastMod = $lm;
                 }
             }
