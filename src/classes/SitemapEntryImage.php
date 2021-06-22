@@ -4,8 +4,9 @@ namespace ArkdevukSitemapBuilder\classes;
 
 use ArkdevukSitemapBuilder\interfaces\SitemapEntryMedia;
 
-class SitemapEntryImage implements SitemapEntryMedia
+class SitemapEntryImage extends AbstractSitemapMedia implements SitemapEntryMedia
 {
+    public const TAG = 'image:image';
     /**
      * URL de l'image
      * Dans certains cas, il se peut que l'URL de l'image ne se trouve pas sur le même domaine que votre site principal.
@@ -22,30 +23,60 @@ class SitemapEntryImage implements SitemapEntryMedia
      *
      * @var null|string
      */
-    protected ?string $caption;
+    protected ?string $caption = null;
     /**
      * Emplacement géographique de l'image. Exemple : <image:geo_location>Limerick, Ireland</image:geo_location>.
      *
      * @var null|string
      */
-    protected ?string $geoLocation;
+    protected ?string $geoLocation = null;
     /**
      * Titre de l'image.
      *
      * @var null|string
      */
-    protected ?string $title;
+    protected ?string $title = null;
     /**
      * URL qui renvoie à la licence de l'image. Si vous le souhaitez, vous pouvez utiliser les métadonnées d'image.
      * @see https://developers.google.com/search/docs/advanced/appearance/image-rights-metadata?hl=fr
      *
      * @var null|string
      */
-    protected ?string $licence;
+    protected ?string $licence = null;
 
     public function __construct(string $location)
     {
         $this->location = $location;
+    }
+
+    /**
+     * @param \XMLWriter $writer
+     * @return \XMLWriter
+     */
+    public function compile(\XMLWriter $writer): \XMLWriter
+    {
+        $writer->startElement(self::TAG);
+        foreach ($this as $key => $value) {
+            if ($value !== null) {
+                switch ($key) {
+                    case 'location':
+                        $writer->writeElement('image:loc', $value);
+                        break;
+                    case 'title':
+                    case 'caption':
+                    case 'geoLocation':
+                        $writer->startElement('image:'.$this->fromCamelCase($key));
+                        $writer->writeCData($value);
+                        $writer->endElement();
+                        break;
+                    default:
+                        $writer->writeElement('image:'.$this->fromCamelCase($key), $value);
+                }
+            }
+        }
+        $writer->endElement();
+
+        return $writer;
     }
 
     /**
@@ -142,4 +173,6 @@ class SitemapEntryImage implements SitemapEntryMedia
     {
         return $this->licence;
     }
+
+
 }

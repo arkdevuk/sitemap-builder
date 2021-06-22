@@ -16,15 +16,17 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4.0"
+      "php": ">=7.4.0",
+      "ext-xmlwriter": "*"
     },
     "support": {
         "issues": "https://github.com/arkdevuk/sitemap-builder/issues",
         "source": "https://github.com/arkdevuk/sitemap-builder"
     },
     "autoload": {
-        "psr-0": {
-            "ArkdevukSitemapBuilder": "src/"
+      "psr-4": {
+        "ArkdevukSitemapBuilder\\": "src/",
+        "App\\": "examples/"
         }
     }
 }

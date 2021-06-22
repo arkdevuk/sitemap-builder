@@ -6,8 +6,9 @@ namespace ArkdevukSitemapBuilder\classes;
 
 use ArkdevukSitemapBuilder\interfaces\SitemapEntryMedia;
 
-class SitemapEntryVideo implements SitemapEntryMedia
+class SitemapEntryVideo extends AbstractSitemapMedia implements SitemapEntryMedia
 {
+    public const TAG = 'video:video';
     /**
      * URL renvoyant au fichier image de la vignette associée à la vidéo.
      * @see https://developers.google.com/search/docs/advanced/guidelines/video?hl=fr#thumbnails
@@ -41,7 +42,7 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var string|null
      */
-    protected ?string $contentLoc;
+    protected ?string $contentLoc = null;
     /**
      * URL renvoyant vers un lecteur pour une vidéo spécifique. En général, cette information est indiquée dans l'élément
      * src d'une balise <embed>.
@@ -55,13 +56,13 @@ class SitemapEntryVideo implements SitemapEntryMedia
      * Les valeurs autorisées sont yes et no.
      * @var string|null
      */
-    protected ?string $playerLoc;
+    protected ?string $playerLoc = null;
     /**
      * Durée de la vidéo en secondes. Cette valeur doit être comprise entre 1 et 28800 (8 heures) inclus.
      *
      * @var int|null
      */
-    protected ?int $duration;
+    protected ?int $duration = null;
     /**
      * Date à partir de laquelle la vidéo ne sera plus disponible (au format W3C). Omettez cette balise si votre vidéo n'expire pas.
      * Si elle est spécifiée, la recherche Google cessera d'afficher votre vidéo après cette date.
@@ -71,19 +72,19 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var \DateTime|null
      */
-    protected ?\DateTime $expirationDate;
+    protected ?\DateTime $expirationDate = null;
     /**
      * Note de la vidéo. Les valeurs autorisées sont des nombres flottants compris entre 0 (minimum) et 5 (maximum) inclus.
      *
      * @var float|null
      */
-    protected ?float $rating;
+    protected ?float $rating = null;
     /**
      * Nombre de fois où la vidéo a été regardée.
      *
      * @var null|int
      */
-    protected ?int $viewCount;
+    protected ?int $viewCount = null;
     /**
      * Date à laquelle la vidéo a été publiée pour la première fois, au format W3C. Les valeurs autorisées sont la date complète (YYYY-MM-DD)
      * ou la date complète suivie des heures, des minutes et des secondes, puis du fuseau horaire (YYYY-MM-DDThh:mm:ss+TZD).
@@ -91,7 +92,7 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var \DateTime|null
      */
-    protected ?\DateTime $publicationDate;
+    protected ?\DateTime $publicationDate = null;
     /**
      *
      * Indique si la vidéo est disponible avec SafeSearch. Si vous omettez cette balise,
@@ -102,7 +103,7 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var null|bool
      */
-    protected ?bool $familyFriendly;
+    protected ?bool $familyFriendly = null;
     /**
      * ndique si la vidéo doit être affichée ou masquée dans les résultats de recherche en fonction du type de plate-forme
      * spécifié. Les plates-formes sont indiquées sous la forme d'une liste dans laquelle elles sont séparées par un espace.
@@ -125,14 +126,14 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var null|bool
      */
-    protected ?bool $requireSubscription;
+    protected ?bool $requiresSubscription = null;
     /**
      * Nom de l'utilisateur ayant mis en ligne la vidéo. Une seule balise <video:uploader> est autorisée pour chaque vidéo.
      * La valeur de chaîne utilisée ne doit pas dépasser 255 caractères.
      *
      * @var null|string
      */
-    protected ?string $uploader;
+    protected ?string $uploader = null;
     /**
      * Balise de chaîne arbitraire décrivant la vidéo. Les balises sont en général de courtes descriptions des concepts
      * clés associés à une vidéo ou à une partie de contenu. Il est conseillé d'affecter plusieurs balises à une même vidéo,
@@ -142,7 +143,7 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var null|string
      */
-    protected ?string $tags;
+    protected ?string $tags = null;
 
     /**
      * Brève description de la catégorie générale à laquelle la vidéo appartient.
@@ -153,12 +154,59 @@ class SitemapEntryVideo implements SitemapEntryMedia
      *
      * @var null|string
      */
-    protected ?string $category;
-
+    protected ?string $category = null;
 
 
     public function __construct()
     {
+    }
+
+    /**
+     * @param \XMLWriter $writer
+     * @return \XMLWriter
+     */
+    public function compile(\XMLWriter $writer): \XMLWriter
+    {
+        $writer->startElement(self::TAG);
+        foreach ($this as $key => $value) {
+            if ($value !== null) {
+                switch ($key) {
+                    case 'platformAllowed':
+                        $writer->startElement('video:platform');
+                        $writer->writeAttribute('relationship', "allow");
+                        $writer->text($value);
+                        $writer->endElement();
+                        break;
+                    case 'title':
+                    case 'description':
+                    case 'uploader':
+                        $writer->startElement('video:'.$this->fromCamelCase($key));
+                        $writer->writeCData($value);
+                        $writer->endElement();
+                        break;
+                    case 'requiresSubscription':
+                    case 'familyFriendly':
+                        $value_tsl = 'yes';
+                        if ($value === false) {
+                            $value_tsl = 'no';
+                        }
+                        $writer->writeElement('video:'.$this->fromCamelCase($key), $value_tsl);
+                        break;
+                    case 'expirationDate':
+                    case 'publicationDate':
+                        $writer->writeElement(
+                            'video:'
+                            .$this->fromCamelCase($key),
+                            $value->format(DATE_ATOM)
+                        );
+                    default:
+                        $writer->writeElement('video:'.$this->fromCamelCase($key), $value);
+                }
+            }
+        }
+        $writer->endElement();
+
+        return $writer;
     }
 
     /**
@@ -392,12 +440,12 @@ class SitemapEntryVideo implements SitemapEntryMedia
     }
 
     /**
-     * @param bool|null $requireSubscription
+     * @param bool|null $requiresSubscription
      * @return SitemapEntryVideo
      */
-    public function setRequireSubscription(?bool $requireSubscription): SitemapEntryVideo
+    public function setRequiresSubscription(?bool $requiresSubscription): SitemapEntryVideo
     {
-        $this->requireSubscription = $requireSubscription;
+        $this->requiresSubscription = $requiresSubscription;
 
         return $this;
     }
@@ -405,9 +453,9 @@ class SitemapEntryVideo implements SitemapEntryMedia
     /**
      * @return bool|null
      */
-    public function getRequireSubscription(): ?bool
+    public function getRequiresSubscription(): ?bool
     {
-        return $this->requireSubscription;
+        return $this->requiresSubscription;
     }
 
     /**

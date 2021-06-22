@@ -42,6 +42,8 @@ class SitemapEntry
 
     public function __construct()
     {
+        $this->media = null;
+        $this->lastModDateTime = null;
     }
 
     /**
