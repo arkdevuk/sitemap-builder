@@ -1,3 +1,4 @@
+[![Latest Stable Version](http://poser.pugx.org/arkdevuk/sitemap-builder/v)](https://packagist.org/packages/arkdevuk/sitemap-builder) [![Total Downloads](http://poser.pugx.org/arkdevuk/sitemap-builder/downloads)](https://packagist.org/packages/arkdevuk/sitemap-builder) [![Latest Unstable Version](http://poser.pugx.org/arkdevuk/sitemap-builder/v/unstable)](https://packagist.org/packages/arkdevuk/sitemap-builder) [![License](http://poser.pugx.org/arkdevuk/sitemap-builder/license)](https://packagist.org/packages/arkdevuk/sitemap-builder) [![Made With](https://img.shields.io/badge/made_with-php-blue)](/docs/requirements/)
 # Sitemap-build
 a simple tool to generate sitemaps for google's bots
 
